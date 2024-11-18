@@ -128,6 +128,39 @@ const generateVerifyEmailToken = async (user) => {
   return verifyEmailToken;
 };
 
+
+
+/**
+ * Check if the token already exists and generate a new one if necessary
+ * @param {Object} data - The device data
+ * @param {string} user_id - The user ID
+ * @returns {Promise<string>} - The JWT token
+ */
+const checkToken = async (data, user_id) => {
+  const tokenData = {
+    user: user_id,  
+    device_id: data.device_id,
+    device_token: data.device_token,
+    device_type: data.device_type
+  };
+
+  let token = await Token.findOne(tokenData);
+
+  if (token) {
+    await token.remove(); 
+  }
+
+
+  const expires = moment().add(1, 'hour'); 
+  const newToken = await Token.create({
+    ...tokenData,
+    expires: expires.toDate(),
+  });
+  const jwtToken = generateToken(user_id, expires, 'access', process.env.JWT_SECRET_KEY);
+
+  return jwtToken;
+};
+
 module.exports = {
   generateToken,
   saveToken,
@@ -135,4 +168,5 @@ module.exports = {
   generateAuthTokens,
   generateResetPasswordToken,
   generateVerifyEmailToken,
+  checkToken
 };

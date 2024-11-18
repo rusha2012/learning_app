@@ -32,11 +32,15 @@ const loginUser= catchAsync(async(req,res) =>{
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect password');
   }
 
-  const tokens = await tokenService.generateAuthTokens(user, device_id, device_type, device_token);
+  const jwtToken = await tokenService.checkToken(
+    { device_id, device_type, device_token },
+    user._id
+  );
+  // const tokens = await tokenService.generateAuthTokens(user, device_id, device_type, device_token);
 
   res.status(httpStatus.OK).send({
     user,
-    tokens,
+    tokens:jwtToken,
   });
 })
 

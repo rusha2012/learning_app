@@ -14,5 +14,6 @@ router.get('/list_conversation',auth(),conversationController.list_conversation)
 
 router.get('/get_conversation',auth(),conversationController.get_conversation);
 
+router.get('/get_allmessage',auth(),conversationController.get_allmessage);
 
 module.exports = router;
