@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # RESTful API Node Server Boilerplate
 
 [![Build Status](https://travis-ci.org/hagopj13/node-express-boilerplate.svg?branch=master)](https://travis-ci.org/hagopj13/node-express-boilerplate)
@@ -438,3 +439,6 @@ Contributions are more than welcome! Please check out the [contributing guide](C
 ## License
 
 [MIT](LICENSE)
+=======
+# learning_app
+>>>>>>> 0861b349efd1c3760647cf76e06d282a8f589047
